@@ -13,6 +13,11 @@ const authRoutes = require('./routes/authRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const adminProductRoutes = require('./routes/adminProductRoutes');
 const adminOrderRoutes = require('./routes/adminOrderRoutes');
+const userProfileRoutes = require('./routes/userProfileRoutes');
+const adminProfileRoutes = require('./routes/adminProfileRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const adminAuthRoutes = require('./routes/adminAuthRoutes');
+const reviewRoutes = require('./routes/reviewRoutes');
 
 const authMiddleware = require('./middleware/authMiddleware');
 const db = require('./config/database');
@@ -28,13 +33,23 @@ mongoose.connect(db.url, { useNewUrlParser: true, useUnifiedTopology: true });
 // Use bodyParser for parsing JSON
 app.use(bodyParser.json());
 
-// Set up routes
+// Product routes
 app.use('/api/products', productRoutes);
+app.use('/api/products', reviewRoutes);
 app.use('/api/auth', authRoutes);
+
+// User routes
 app.use('/api/users', userRoutes);
+app.use('/api/users/profile', userProfileRoutes);
 app.use('/api/cart', authMiddleware, cartRoutes);
+
+// Admin routes
+app.use('/api/admin', adminRoutes);
+app.use('/api/admin/profile', adminProfileRoutes);
 app.use('/api/admin/products', adminProductRoutes);
 app.use('/api/admin/orders', adminOrderRoutes);
+app.use('/api/admin/auth', adminAuthRoutes);
+
 
 // Protected route example
 app.get('/api/user', authMiddleware, (req, res) => {
