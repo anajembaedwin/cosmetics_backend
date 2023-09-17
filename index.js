@@ -18,6 +18,7 @@ const adminProfileRoutes = require('./routes/adminProfileRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
+const userWishlistRoutes = require('./routes/userWishlistRoutes');
 
 const authMiddleware = require('./middleware/authMiddleware');
 const db = require('./config/database');
@@ -36,12 +37,13 @@ app.use(bodyParser.json());
 // Product routes
 app.use('/api/products', productRoutes);
 app.use('/api/products', reviewRoutes);
-app.use('/api/auth', authRoutes);
 
 // User routes
 app.use('/api/users', userRoutes);
 app.use('/api/users/profile', userProfileRoutes);
+app.use('/api/users/wishlist', userWishlistRoutes);
 app.use('/api/cart', authMiddleware, cartRoutes);
+app.use('/api/auth', authRoutes);
 
 // Admin routes
 app.use('/api/admin', adminRoutes);
