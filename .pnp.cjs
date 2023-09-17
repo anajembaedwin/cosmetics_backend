@@ -32,6 +32,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["body-parser", "npm:1.20.2"],\
             ["cors", "npm:2.8.5"],\
             ["express", "npm:4.18.2"],\
+            ["helmet", "npm:7.0.0"],\
             ["jsonwebtoken", "npm:9.0.2"],\
             ["mongoose", "npm:7.5.2"]\
           ],\
@@ -528,6 +529,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["body-parser", "npm:1.20.2"],\
             ["cors", "npm:2.8.5"],\
             ["express", "npm:4.18.2"],\
+            ["helmet", "npm:7.0.0"],\
             ["jsonwebtoken", "npm:9.0.2"],\
             ["mongoose", "npm:7.5.2"]\
           ],\
@@ -970,6 +972,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/has-unicode-npm-2.0.1-893adb4747-1eab07a743.zip/node_modules/has-unicode/",\
           "packageDependencies": [\
             ["has-unicode", "npm:2.0.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["helmet", [\
+        ["npm:7.0.0", {\
+          "packageLocation": "./.yarn/cache/helmet-npm-7.0.0-13c1e96edf-3622b8b68b.zip/node_modules/helmet/",\
+          "packageDependencies": [\
+            ["helmet", "npm:7.0.0"]\
           ],\
           "linkType": "HARD"\
         }]\
