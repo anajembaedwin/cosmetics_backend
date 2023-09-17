@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
+const cartRoutes = require('./routes/cartRoutes');
 const authMiddleware = require('./middleware/authMiddleware');
 const db = require('./config/database');
 
@@ -26,6 +27,7 @@ app.use(bodyParser.json());
 app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/cart', authMiddleware, cartRoutes);
 
 // Protected route example
 app.get('/api/user', authMiddleware, (req, res) => {
