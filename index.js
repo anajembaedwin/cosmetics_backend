@@ -5,10 +5,15 @@ const cors = require('cors');
 
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+
+//routes
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const authRoutes = require('./routes/authRoutes');
 const cartRoutes = require('./routes/cartRoutes');
+const adminProductRoutes = require('./routes/adminProductRoutes');
+const adminOrderRoutes = require('./routes/adminOrderRoutes');
+
 const authMiddleware = require('./middleware/authMiddleware');
 const db = require('./config/database');
 
@@ -28,6 +33,8 @@ app.use('/api/products', productRoutes);
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/cart', authMiddleware, cartRoutes);
+app.use('/api/admin/products', adminProductRoutes);
+app.use('/api/admin/orders', adminOrderRoutes);
 
 // Protected route example
 app.get('/api/user', authMiddleware, (req, res) => {
