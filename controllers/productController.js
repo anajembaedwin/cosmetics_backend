@@ -3,12 +3,19 @@ const Product = require('../models/Product');
 
 exports.getAllProducts = async (req, res) => {
   try {
-    const products = await Product.find();
+    const page = req.query.page || 1; // Default to page 1 if not specified
+    const perPage = 10; // Number of products per page
+
+    const products = await Product.find()
+      .skip((page - 1) * perPage)
+      .limit(perPage);
+
     res.json(products);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.createProduct = async (req, res) => {
   try {
@@ -43,6 +50,22 @@ exports.filterProductsByCategory = async (req, res) => {
     const products = await Product.find({ categoryId }); // Assuming you have a categoryId field in your Product model
 
     res.json(products);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+exports.getProductById = async (req, res) => {
+  try {
+    const productId = req.params.productId;
+
+    const product = await Product.findById(productId);
+
+    if (!product) {
+      return res.status(404).json({ error: 'Product not found' });
+    }
+
+    res.json(product);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

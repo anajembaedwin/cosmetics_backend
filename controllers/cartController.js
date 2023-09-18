@@ -16,6 +16,11 @@ exports.addToCart = async (req, res) => {
     const userId = req.user.id;
     const { productId, quantity } = req.body;
 
+    // Validate quantity
+    if (!Number.isInteger(quantity) || quantity <= 0) {
+      return res.status(400).json({ error: 'Quantity must be a positive integer' });
+    }
+
     let cart = await Cart.findOne({ userId });
 
     if (!cart) {
@@ -25,9 +30,16 @@ exports.addToCart = async (req, res) => {
     const existingItem = cart.items.find(item => item.productId.equals(productId));
 
     if (existingItem) {
-      existingItem.quantity += quantity || 1;
+      existingItem.quantity += quantity;
     } else {
-      cart.items.push({ productId, quantity: quantity || 1 });
+      // Handle scenario where product doesn't exist
+      const product = await Product.findById(productId);
+
+      if (!product) {
+        return res.status(404).json({ error: 'Product not found' });
+      }
+
+      cart.items.push({ productId, quantity });
     }
 
     await cart.save();
@@ -38,11 +50,17 @@ exports.addToCart = async (req, res) => {
   }
 };
 
+
 exports.updateCartItem = async (req, res) => {
   try {
     const userId = req.user.id;
     const productId = req.params.productId;
     const { quantity } = req.body;
+
+    // Validate quantity
+    if (!Number.isInteger(quantity) || quantity <= 0) {
+      return res.status(400).json({ error: 'Quantity must be a positive integer' });
+    }
 
     const cart = await Cart.findOne({ userId });
 
@@ -65,6 +83,7 @@ exports.updateCartItem = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.removeFromCart = async (req, res) => {
   try {

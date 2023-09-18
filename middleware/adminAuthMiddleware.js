@@ -1,5 +1,8 @@
 // middleware/adminAuthMiddleware.js
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
   const token = req.header('x-auth-token');
@@ -9,7 +12,7 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, 'secret_key');
+    const decoded = jwt.verify(token, jwtSecret);
 
     // Assuming you have some way to identify an admin (e.g., a flag in the JWT payload)
     if (!decoded.isAdmin) {

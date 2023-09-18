@@ -1,9 +1,20 @@
 // controllers/adminProductController.js
 const Product = require('../models/Product');
 
+// TODO: update code for product image
 exports.createProduct = async (req, res) => {
   try {
     const { name, price, description } = req.body;
+
+    // Check if price is a valid number
+    if (isNaN(parseFloat(price)) || !isFinite(price)) {
+      return res.status(400).json({ error: 'Price must be a valid number' });
+    }
+
+    // Check if name and description meet certain criteria (e.g., not empty)
+    if (!name || !description) {
+      return res.status(400).json({ error: 'Name and description are required' });
+    }
 
     const product = await Product.create({
       name,
@@ -22,6 +33,16 @@ exports.updateProduct = async (req, res) => {
     const productId = req.params.productId;
     const { name, price, description } = req.body;
 
+    // Check if price is a valid number
+    if (price && (isNaN(parseFloat(price)) || !isFinite(price))) {
+      return res.status(400).json({ error: 'Price must be a valid number' });
+    }
+
+    // Check if name and description meet certain criteria (e.g., not empty)
+    if (!name || !description) {
+      return res.status(400).json({ error: 'Name and description are required' });
+    }
+
     const product = await Product.findByIdAndUpdate(
       productId,
       { name, price, description },
@@ -37,6 +58,7 @@ exports.updateProduct = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.deleteProduct = async (req, res) => {
   try {

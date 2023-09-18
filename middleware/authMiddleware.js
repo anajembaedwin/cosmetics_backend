@@ -1,5 +1,8 @@
 // middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
+
+const jwtSecret = process.env.JWT_SECRET;
 
 module.exports = (req, res, next) => {
   const token = req.header('auth-token');
@@ -9,7 +12,7 @@ module.exports = (req, res, next) => {
   }
 
   try {
-    const verified = jwt.verify(token, 'secret_key');
+    const verified = jwt.verify(token, jwtSecret);
     req.user = verified;
     next();
   } catch (error) {

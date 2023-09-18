@@ -28,8 +28,9 @@ const app = express();
 app.use(helmet()); // Use Helmet for security headers
 app.use(cors()); // Enable CORS for all routes
 
-// Connect to MongoDB
-mongoose.connect(db.url, { useNewUrlParser: true, useUnifiedTopology: true });
+// Connect to MongoDB useNewUrlParser: true, useUnifiedTopology: true 
+mongoose.connect(db.url, {})
+    .then(result => console.log("database connected"));
 
 // Use bodyParser for parsing JSON
 app.use(bodyParser.json());
