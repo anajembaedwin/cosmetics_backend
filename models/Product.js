@@ -14,29 +14,29 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  categoryId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Category',
-    required: true,
-  },
-  images: [{ type: String }], // An array of image URLs
-  ratings: {
-    type: Number,
-    default: 0, // Default value for ratings is set to 0
-  },
-  reviews: [{ 
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-      required: true,
-    },
-    text: String,
-    rating: Number,
-  }],
-  stock: {
-    type: Number,
-    default: 0, // Default value for stock is set to 0
-  },
+//   categoryId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'Category',
+//     required: true,
+//   },
+//   images: [{ type: String }], // An array of image URLs
+//   ratings: {
+//     type: Number,
+//     default: 0, // Default value for ratings is set to 0
+//   },
+//   reviews: [{ 
+//     user: {
+//       type: mongoose.Schema.Types.ObjectId,
+//       ref: 'User',
+//       required: true,
+//     },
+//     text: String,
+//     rating: Number,
+//   }],
+//   stock: {
+//     type: Number,
+//     default: 0, // Default value for stock is set to 0
+//   },
 });
 
 module.exports = mongoose.model('Product', productSchema);
