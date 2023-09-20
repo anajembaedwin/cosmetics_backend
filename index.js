@@ -19,6 +19,7 @@ const adminRoutes = require('./routes/adminRoutes');
 const adminAuthRoutes = require('./routes/adminAuthRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const userWishlistRoutes = require('./routes/userWishlistRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
 
 const authMiddleware = require('./middleware/authMiddleware');
 const db = require('./config/database');
@@ -39,6 +40,7 @@ app.use(bodyParser.json());
 app.use('/api/products', productRoutes);
 app.use('/api/products', reviewRoutes);
 
+
 // User routes
 app.use('/api/users', userRoutes);
 app.use('/api/users/profile', userProfileRoutes);
@@ -52,7 +54,7 @@ app.use('/api/admin/profile', adminProfileRoutes);
 app.use('/api/admin/products', adminProductRoutes);
 app.use('/api/admin/orders', adminOrderRoutes);
 app.use('/api/admin/auth', adminAuthRoutes);
-
+app.use('/api/admin/categories', categoryRoutes);
 
 // Protected route example
 app.get('/api/user', authMiddleware, (req, res) => {

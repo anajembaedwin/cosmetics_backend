@@ -1,5 +1,6 @@
 // controllers/productController.js
 const Product = require('../models/Product');
+const Category = require('../models/Category');
 
 exports.getAllProducts = async (req, res) => {
   try {
@@ -19,12 +20,30 @@ exports.getAllProducts = async (req, res) => {
 
 exports.createProduct = async (req, res) => {
   try {
-    const product = await Product.create(req.body);
+    const { name, price, description, category, subcategory } = req.body;
+
+    // Fetch the category and subcategory IDs based on their names
+    const categoryObject = await Category.findOne({ name: category });
+    const subcategoryObject = await Category.findOne({ 'subCategories.name': subcategory });
+
+    if (!categoryObject || !subcategoryObject) {
+      return res.status(400).json({ error: 'Invalid category or subcategory' });
+    }
+
+    const product = await Product.create({
+      name,
+      price,
+      description,
+      category: categoryObject._id,
+      subcategory: subcategoryObject.subCategories.find(sub => sub.name === subcategoryObject).id,
+    });
+
     res.status(201).json(product);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.searchProducts = async (req, res) => {
   try {

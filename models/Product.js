@@ -14,11 +14,16 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-//   categoryId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'Category',
-//     required: true,
-//   },
+  category: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category',
+    required: true,
+  },
+  subcategory: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Category.subcategories',
+    required: true,
+  },
 //   images: [{ type: String }], // An array of image URLs
 //   ratings: {
 //     type: Number,
